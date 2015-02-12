@@ -14,7 +14,7 @@ do
     if [ "$sum" == ""  ] ; then
 	echo 
     else
-	sed -i "$sum"d /tmp/diff_list 
+	sed -i '/$sum/d' /tmp/diff_list 
     fi
 done < db 
 
