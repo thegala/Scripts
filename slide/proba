@@ -1,0 +1,24 @@
+debug= 0       # 0 (low) to 3 (lots of info)
+pal=0          # 0=ntsc 1=pal
+ac3=1          # 0=mp2 1=ac3 audio
+copy=0         # add copies of original images to the output directory
+high_quality=1 # use high-quality mode (set to 1)
+autocrop=1     # autocrop images to fill full screen
+border=0       # add border of N pixels between image and dvd edge
+#sharpen=0      # Enable image sharpening for all images
+widescreen=1   # use widescreen mode (16:9) instead of 4:3
+
+#program
+#SAM_0968.JPG:5::kenburns:80%;bottomleft;30%;70%,50%
+#crossfade:2
+#SAM_0970.JPG:5::kenburns:80%;bottomleft;10%;30%,80%
+
+#Proba
+#m.png:5::kenburns:80%;bottomleft;30%;30%,80%
+#SAM_0968.JPG:5:::
+#SAM_0970.JPG:5:::
+
+
+SAM_0968.JPG:10::kenburns:100%;center;2025,412;4009,1527
+crossfade:2
+SAM_0970.JPG:12::kenburns:100%;center;606,754;2234,1926

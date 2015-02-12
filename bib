@@ -1,0 +1,118 @@
+#!/bin/bash
+
+#This script extract text from trs and save to file
+
+#Global variables input from user
+file=bak
+final=$2
+field=$3
+path=$4
+
+#Global variables for this program help nothing more
+space=" "
+st="<s>"
+end="</s>"
+br1="("
+br2=")"
+#NO nedd for this up just variable"char" no +
+
+sed '1,6d' $1 > 1
+sed '$d' 1 > 2
+sed '$d' 2 > 1
+sed '$d' 1 > 2
+cp 2 bak
+rm 1 2
+
+#Name of file for sphinx tran
+name=$1
+#Remove .trs
+echo $1 | sed 's/.trs//g' > name
+name=`cat name`
+#Append sync
+name=$name"_Sync0"
+#Name for number more than 9
+name2=$name
+name=$name"0"
+rm name
+
+#This is for get number lines where is <*/*>
+grep -n \<*/*\> $file | sed 's/:.*//g' >> temp
+
+var=0
+lines=`cat temp | wc -l`
+#Fix because it dont read last number
+lines=`expr $lines + 1`
+
+#Read temp and save number of lines to line array
+while [ "$var" -lt "$lines" ]
+do
+    orig=`cat temp | head -n $var | tail -n 1 `
+    tx="$orig"
+    line[$var]=$tx
+    var=`expr $var + 1`          
+done
+
+#Save input to temp and then append to new file called tran
+#+ also create files field
+i=1
+#Need  to correct vaule because of starting lines at 0
+while [ "$i" -lt "$var" ]
+do
+    #Asagin vaules of lines
+    x=`echo ${line[$i]}`
+    y=`echo  `${line[`expr $i+1`]}``
+
+    #Get differ of lines
+    a="$((${y}-${x}))"
+
+    #Get lines we Need
+    head -n $y $file > temp3
+    tail -n $a temp3 > temp2
+    
+    #remove what is left from trash
+    sed '/<.*>/d' temp2  > temp
+
+    #remove empty lines
+    sed '/^$/d' temp > temp2
+
+    #Make all upper case and clean with java program
+    text=`cat temp2`
+    echo $text | tr '[:lower:]' '[:upper:]' > temp3
+    text=`cat temp3`
+    tmp=$(java CleanText $text)
+    
+    #Change name from number higer than 9
+    if [[ $i -eq 10 ]]; then
+        name=$name2
+    fi;
+
+    #Make input for sphinx traning append <s>*<s/> (filename) 
+    tmp=$st$space$tmp$space$end$space$br1$name$i$br2 
+
+    #Save to final file 
+    echo $tmp >>  $final
+
+
+    ##############
+    #Create fileds
+    ##############
+    #Variable that will be writen in field
+    f=$path$name$i
+    echo $f >> $field 
+    
+    i=`expr $i + 1`          
+done
+
+#Hack because we get line more than expected
+sed '$d' $final > temp
+#Return bak to final
+cp temp  $final
+
+#Hack because we get line more than expected
+sed '$d' $field > temp
+#Return bak to final
+cp temp  $field
+
+#Last cleanLw
+rm temp temp2 temp3  bak
+exit

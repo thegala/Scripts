@@ -1,0 +1,11 @@
+#!/bin/bash
+MOVIES=/run/media/mirko/8b870d4a-1c23-4a48-9b7a-4f5a37a58f88/home/ana/Preuzimanja/
+#MOVIES=/home/ana/Preuzimanja/
+CONVERT=/home/ana/Glazba/
+ORIGIN_TYPE=.mp3
+FINAL_TYPE=.wav
+find "$MOVIES" -name '*$ORIGIN_TYPE' -exec sh -c 'ffmpeg  -b 280k -i "$0"  "${0%%$ORIGIN_TYPE}.$FINAL_TYPE"' {} \;
+#mkdir $CONVERT
+find "$MOVIES" -name '*$FINAL_TYPE' -exec sh -c 'mv "$0"  "$CONVERT"' {} \;
+find "$MOVIES" -name '*$ORIGIN_TYPE'-exec sh -c 'rm "$0" ' {} \; 
+exit;

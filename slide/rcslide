@@ -1,0 +1,9 @@
+debug=1        # 0 (low) to 3 (lots of info)
+pal=0          # 0=ntsc 1=pal
+ac3=1          # 0=mp2 1=ac3 audio
+copy=0         # add copies of original images to the output directory
+high_quality=0 # use high-quality mode (set to 1)
+autocrop=1     # autocrop images to fill full screen
+border=0       # add border of N pixels between image and dvd edge
+sharpen=0      # Enable image sharpening for all images
+widescreen=0   # use widescreen mode (16:9) instead of 4:3
