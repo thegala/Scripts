@@ -21,5 +21,3 @@ do
     echo $line >> $OVER_FILE 
 done < $READ_FILE
 
-    
-
