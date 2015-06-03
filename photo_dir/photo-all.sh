@@ -1,9 +1,10 @@
 
 #!/bin/sh
 
-# Goes through all jpeg files in current directory, grabs date from each
+# Goes through all picture files in current directory, grabs date from each
 # and sorts them into subdirectories according to the date
 # Creates subdirectories corresponding to the dates as necessary.
+# Call outer scripts for that for sake of modularity
 
 # ORF 
 #for f in $(find . -name '*.ORF'); do sh ./photo_jpg.sh  $f ; done

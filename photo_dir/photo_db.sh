@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Goes through all jpeg and ORF and create list of all files
+#Only creates db or file with name and a hash sum in list
 
 db(){
     tmp=$(echo $f | tr  '*' ' ')    #hack

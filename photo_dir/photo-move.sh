@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Goes through all jpeg and ORF and create list of all files
+# Get md5sum for all picutre files and make diff_list based on all files in a list - move = diff_list
 
 dir=$PWD
 db(){
